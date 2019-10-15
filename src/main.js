@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap';
-
+import 'bootstrap'
+global.jQuery = require('jquery');
+var $ = global.jQuery;
+window.$ = $;
 
 
 import VueRouter from 'vue-router';

@@ -18,6 +18,18 @@ searchRoutes.route('/').get(function (req, res) {
     .catch()
 });
 
+searchRoutes.get('/cart', (req, res) => {
+    var phonesID = req.query._id
+
+    Phone.find({_id : phonesID})
+    .then(phones => {
+        res.json({
+            data: phones
+        })
+    })
+    .catch()
+})
+
 
 
 

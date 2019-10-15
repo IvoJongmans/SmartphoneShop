@@ -21,7 +21,7 @@
         <button
           class="btn btn-primary"
           v-bind:value="phone._id"
-          @click="addToCart(phone._id)"
+          @click="addToCart(phone)"
         >Add to Cart</button>
       </div>
     </div>
@@ -34,7 +34,8 @@ import { EventBus } from "../event-bus";
 export default {
   data() {
     return {
-      phones: []
+      phones: [],
+      cart: []
     };
   },
   created() {
@@ -65,8 +66,9 @@ export default {
     });
   },
   methods: {
-    addToCart(id) {
-      EventBus.$emit("addToCart", id);
+    addToCart(phone) {
+      this.cart.push(phone);
+      EventBus.$emit("addToCart", this.cart);
     }
   },
   mounted() {}

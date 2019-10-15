@@ -1,6 +1,6 @@
 <template>
- <div id="navcontainer">
-     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div id="navcontainer">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="/">
         <img src="/images/navbrand.png" width="40" height="40" />
       </a>
@@ -22,77 +22,59 @@
             <a class="nav-link" href="/"></a>
           </li>
 
-        
-          
-          <!-- <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-          </li>-->
+       
         </ul>
         <form class="form-inline my-2 my-lg-0">
-          <!-- <input
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-          <img src="/images/shoppingcart.png" width="40" height="40" id="shoppingCart" @click="openModal">
+          <img src="/images/shoppingcart.png" width="40" height="40" id="shoppingCart" />
         </form>
       </div>
     </nav>
 
     <div class="modal" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Shopping Cart</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Modal Heading</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <!-- Modal body -->
+          <div class="modal-body">
+            <p v-for="phone in cart" v-bind:key="phone._id">{{phone}}</p>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Verder Winkelen</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal">Afrekenen</button>
+          </div>
+        </div>
       </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        Modal body..
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-
     </div>
   </div>
-</div>
- </div>
-    
 </template>
 
 <script>
 import { EventBus } from "../event-bus";
 export default {
-    data() {
-      return {
-        cart: []
-      }
-    },
-    created() {
-
-      //adds phones to cart array
-      EventBus.$on("addToCart", phone => {
-      this.cart.push({"phone" : phone})
-      console.log(this.cart)
+  data() {
+    return {
+      cart: []
+    };
+  },
+  created() {
+    EventBus.$on("addToCart", cart => {
+      this.cart = cart;
     });
-    
-    },
-    methods: {
-      openModal() {
-        console.log("show shopping cart")
-      }
-    }
-}
+  },
+  mounted() {
+    $("#shoppingCart").click(function() {
+      $("#myModal").modal("show");
+    });
+  }
+};
 </script>
 
 <style>
-
 </style>
