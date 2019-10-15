@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap';
+
 
 
 import VueRouter from 'vue-router';
@@ -16,6 +18,7 @@ Vue.config.productionTip = false;
 import IndexComponent from './components/IndexComponent.vue';
 import PhoneComponent from './components/PhoneComponent.vue';
 import SearchComponent from './components/SearchComponent.vue';
+import NavComponent from './components/NavComponent.vue';
 
 const routes = [
   {
@@ -23,13 +26,17 @@ const routes = [
       path: '/',
       components: {
         default: IndexComponent,
-        search: SearchComponent
+        search: SearchComponent,
+        nav: NavComponent
       }
   },
   {
       name: 'phone',
       path: '/phone/:id',
-      component: PhoneComponent
+      components: {
+        default: PhoneComponent,
+        nav: NavComponent
+      }
   },
 ] ;
 

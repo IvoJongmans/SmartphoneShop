@@ -1,5 +1,9 @@
 <template>
+
+  
+
   <div class="container">
+    <router-view name="nav"></router-view>  
     <div class="row">
       <div class="col-sm-6">
         <h1>{{phone.brand}}</h1>

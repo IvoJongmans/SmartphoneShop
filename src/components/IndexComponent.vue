@@ -2,7 +2,7 @@
   <div class="col-sm-10">
     <div class="d-flex flex-wrap">
       <div
-        class="text-center"
+        class="text-center phoneIndex"
         v-bind:id="phone._id"
         v-for="phone in phones"
         v-bind:key="phone._id"
@@ -17,6 +17,12 @@
           <br />
           Prijs: {{phone.price}},-
         </a>
+        <br />
+        <button
+          class="btn btn-primary"
+          v-bind:value="phone._id"
+          @click="addToCart(phone._id)"
+        >Add to Cart</button>
       </div>
     </div>
   </div>
@@ -43,26 +49,26 @@ export default {
         let uri = "http://localhost:4000/phones";
         this.axios.get(uri).then(response => {
           this.phones = response.data;
-        });        
-      }
-      else {
-        
-      
-
-      for (let i = 0; i < brands.length; i++) {
-        if (i == brands.length - 1) {
-          uri += "brand=" + brands[i];
-        } else {
-          uri += "brand=" + brands[i] + "&";
+        });
+      } else {
+        for (let i = 0; i < brands.length; i++) {
+          if (i == brands.length - 1) {
+            uri += "brand=" + brands[i];
+          } else {
+            uri += "brand=" + brands[i] + "&";
+          }
         }
+        this.axios.get(uri).then(response => {
+          this.phones = response.data;
+        });
       }
-      this.axios.get(uri).then(response => {
-        this.phones = response.data;
-      });
-    }
     });
   },
-  methods: {},
+  methods: {
+    addToCart(id) {
+      EventBus.$emit("addToCart", id);
+    }
+  },
   mounted() {}
 };
 </script>
@@ -74,5 +80,9 @@ a {
 
 a:hover {
   color: black;
+}
+
+.phoneIndex:hover {
+  background-color: #f8f9fa;
 }
 </style>
