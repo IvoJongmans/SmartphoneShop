@@ -1,29 +1,7 @@
-# mevnproject
+# SmartphoneShop
 
-## Project setup
-```
-npm install
-```
+Building a smartphoneshop with the MEVN stack.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Link to my [Trello](https://trello.com/b/iJ1U2CQA/smartphoneshop) board.
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![sps](https://user-images.githubusercontent.com/48712793/66829405-973a1180-ef53-11e9-8429-44421350b9e8.png)
