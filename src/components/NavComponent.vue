@@ -21,8 +21,6 @@
           <li class="nav-item active">
             <a class="nav-link" href="/"></a>
           </li>
-
-       
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <img src="/images/shoppingcart.png" width="40" height="40" id="shoppingCart" />
@@ -41,7 +39,10 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-            <p v-for="phone in cart" v-bind:key="phone._id">{{phone}}</p>
+            <p v-for="(phone, index) in cart" v-bind:key="phone._id">
+              <img v-bind:src="'/images/' + phone.image" style="height:30px;width:30px" />
+              {{phone.brand}} {{phone.model}} {{phone.price}},- <button class="btn btn-danger" @click="removeFromCart(index)">X</button>
+            </p>
           </div>
 
           <!-- Modal footer -->
@@ -64,14 +65,28 @@ export default {
     };
   },
   created() {
-    EventBus.$on("addToCart", cart => {
-      this.cart = cart;
+    //check for session -> yes -> add phones to cart
+    if (sessionStorage.length > 0) {
+      this.cart = JSON.parse(sessionStorage.getItem("cart"));
+    }
+    //on addToCart add phone to cart
+    EventBus.$on("addToCart", phone => {
+      this.cart.push(phone);
+      sessionStorage.setItem("cart", JSON.stringify(this.cart));
     });
   },
   mounted() {
+    //opens the shopping cart model when clicking on #shoppingcart image
     $("#shoppingCart").click(function() {
       $("#myModal").modal("show");
     });
+  },
+  methods : {
+    removeFromCart(indexToRemove) {
+      console.log("Be gone!")
+      this.cart.splice(indexToRemove, 1)
+      sessionStorage.setItem("cart", JSON.stringify(this.cart));
+    }
   }
 };
 </script>

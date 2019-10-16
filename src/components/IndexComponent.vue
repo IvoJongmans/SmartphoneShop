@@ -35,7 +35,6 @@ export default {
   data() {
     return {
       phones: [],
-      cart: []
     };
   },
   created() {
@@ -67,8 +66,7 @@ export default {
   },
   methods: {
     addToCart(phone) {
-      this.cart.push(phone);
-      EventBus.$emit("addToCart", this.cart);
+      EventBus.$emit("addToCart", phone)
     }
   },
   mounted() {}
