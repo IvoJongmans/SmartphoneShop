@@ -1,6 +1,6 @@
 <template>
   <div class="col-sm-10">
-    <div class="d-flex flex-wrap">
+    <div class="d-flex flex-wrap justify-content-between">
       <div
         class="text-center phoneIndex"
         v-bind:id="phone._id"
@@ -38,19 +38,24 @@ export default {
     };
   },
   created() {
+    //add all phones in DB to the page
     let uri = "http://localhost:4000/phones";
     this.axios.get(uri).then(response => {
       this.phones = response.data;
     });
+    //search on phone brands
     EventBus.$on("searchData", brands => {
-      let uri = "http://localhost:4000/search?";
-
+      
+      //when no brand is selected show all phones again
       if (brands.length == 0) {
         let uri = "http://localhost:4000/phones";
         this.axios.get(uri).then(response => {
           this.phones = response.data;
         });
-      } else {
+      } 
+      //show brands that are selected
+      else {
+        let uri = "http://localhost:4000/search?";
         for (let i = 0; i < brands.length; i++) {
           if (i == brands.length - 1) {
             uri += "brand=" + brands[i];
@@ -65,6 +70,7 @@ export default {
     });
   },
   methods: {
+    //emits event to nav shopping cart 
     addToCart(phone) {
       EventBus.$emit("addToCart", phone)
     }

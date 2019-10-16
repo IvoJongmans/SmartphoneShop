@@ -24,6 +24,7 @@
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <img src="/images/shoppingcart.png" width="40" height="40" id="shoppingCart" />
+          <span class="badge badge-secondary">{{cart.length}}</span>
         </form>
       </div>
     </nav>
@@ -43,6 +44,7 @@
               <img v-bind:src="'/images/' + phone.image" style="height:30px;width:30px" />
               {{phone.brand}} {{phone.model}} {{phone.price}},- <button class="btn btn-danger" @click="removeFromCart(index)">X</button>
             </p>
+            <p>Totaal: {{totalPrice}},-</p>
           </div>
 
           <!-- Modal footer -->
@@ -61,7 +63,8 @@ import { EventBus } from "../event-bus";
 export default {
   data() {
     return {
-      cart: []
+      cart: [],
+      totalPrice : 0
     };
   },
   created() {
@@ -82,10 +85,21 @@ export default {
     });
   },
   methods : {
+    //removes phone from cart on index
     removeFromCart(indexToRemove) {
-      console.log("Be gone!")
       this.cart.splice(indexToRemove, 1)
       sessionStorage.setItem("cart", JSON.stringify(this.cart));
+    }
+  },
+  watch: {
+    //watch cart for change
+    cart :function() {
+      let total = 0
+      //@change update total price
+      for(let i = 0 ; i < this.cart.length ; i++) {
+        total += parseInt(this.cart[i].price)
+      }
+      this.totalPrice = total
     }
   }
 };
