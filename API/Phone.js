@@ -13,7 +13,7 @@ let Phone = new Schema({
     type: String
   },
   price: {
-    type: String
+    type: Number
   },
 },{
     collection: 'phones'

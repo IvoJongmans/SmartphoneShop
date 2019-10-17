@@ -1,21 +1,26 @@
 <template>
   <div class="col-sm-2">
     <div id="brandcontainer">
-    <div
-      v-for="brandInDatabase in brandsInDatabase"
-      v-bind:key="brandInDatabase._id"
-      class="form-check"
-    >
-      <input
-        class="form-check-input"
-        type="checkbox"
-        v-bind:value="brandInDatabase.brand"
-        :id="brandInDatabase.brand"
-        v-model="brands"
-        @change="brandSearch"
-      />
-      <label class="form-check-label" :for="brandInDatabase.brand">{{brandInDatabase.brand}}</label>
+      <div
+        v-for="brandInDatabase in brandsInDatabase"
+        v-bind:key="brandInDatabase._id"
+        class="form-check"
+      >
+        <input
+          class="form-check-input"
+          type="checkbox"
+          v-bind:value="brandInDatabase.brand"
+          :id="brandInDatabase.brand"
+          v-model="search.brands"
+          @change="searchData"
+        />
+        <label class="form-check-label" :for="brandInDatabase.brand">{{brandInDatabase.brand}}</label>
+      </div>
     </div>
+    <div>
+      <input type="text" v-model="search.prices.priceMin" />
+      <input type="text" v-model="search.prices.priceMax" />
+      <button class="btn btn-primary" @click="searchData">>>></button>
     </div>
   </div>
 </template>
@@ -26,11 +31,19 @@ import { EventBus } from "../event-bus";
 export default {
   data() {
     return {
-      brands: [],
-      brandsInDatabase: []
+      // brands: [],
+      brandsInDatabase: [],
+      search: {
+        brands: [],
+        prices: {
+          priceMin: "",
+          priceMax: ""
+        }
+      }
     };
   },
   created() {
+    //gets all phonebrands from the database
     let uri = "http://localhost:4000/phones";
 
     let brandlist = [];
@@ -44,18 +57,18 @@ export default {
         }
       }
     });
-    
   },
   methods: {
-    brandSearch() {
-      EventBus.$emit("searchData", this.brands);
+    //emits all search options to IndexComponent
+    searchData() {
+      console.log(this.search)
+      EventBus.$emit("searchData", this.search);
     }
   }
 };
 </script>
 
 <style>
-
 #brandcontainer {
   padding: 25px;
 }

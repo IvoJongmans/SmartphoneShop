@@ -44,10 +44,10 @@ export default {
       this.phones = response.data;
     });
     //search on phone brands
-    EventBus.$on("searchData", brands => {
+    EventBus.$on("searchData", search => {
       
-      //when no brand is selected show all phones again
-      if (brands.length == 0) {
+      //when no brand / price is selected show all phones again
+      if (search.brands.length == 0 && search.prices.priceMin === ""  && search.prices.priceMax === "") {
         let uri = "http://localhost:4000/phones";
         this.axios.get(uri).then(response => {
           this.phones = response.data;
@@ -56,11 +56,11 @@ export default {
       //show brands that are selected
       else {
         let uri = "http://localhost:4000/search?";
-        for (let i = 0; i < brands.length; i++) {
-          if (i == brands.length - 1) {
-            uri += "brand=" + brands[i];
+        for (let i = 0; i < search.brands.length; i++) {
+          if (i == search.brands.length - 1) {
+            uri += "brand=" + search.brands[i];
           } else {
-            uri += "brand=" + brands[i] + "&";
+            uri += "brand=" + search.brands[i] + "&";
           }
         }
         this.axios.get(uri).then(response => {

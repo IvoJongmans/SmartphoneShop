@@ -7,28 +7,32 @@ let Phone = require('./Phone');
 //get search query from Url and repsond with correct JSON
 searchRoutes.route('/').get(function (req, res) {
 
-    var brand = req.query.brand
+    const { brand, priceMin, priceMax } = req.query;
+    let query = {};
+    if (brand) {
+        query.brand = brand;
+    }
+    if (priceMin) {
+        query.price = {$gte: priceMin};
+    }
+    if (priceMax) {
+        query.price = {$lte: priceMax};
+    }
+    // const items = await Items.find(query);
+    // var brands = req.query.brand
+    // var price_min = req.query.priceMin
+    // var price_max = req.query.priceMax
 
+
+    // console.log(price_min)
     // res.json({brand})
 
-    Phone.find({brand: brand})
-    .then(phones => {
-        res.json(phones)
-    })
-    .catch()
-});
-
-searchRoutes.get('/cart', (req, res) => {
-    var phonesID = req.query._id
-
-    Phone.find({_id : phonesID})
-    .then(phones => {
-        res.json({
-            data: phones
+    Phone.find(query)
+        .then(phones => {
+            res.json(phones)
         })
-    })
-    .catch()
-})
+        .catch()
+});
 
 
 
