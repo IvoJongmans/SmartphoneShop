@@ -160,6 +160,7 @@ a {
 
 a:hover {
   color: black;
+  text-decoration: none;
 }
 .phoneIndex {
   width: auto

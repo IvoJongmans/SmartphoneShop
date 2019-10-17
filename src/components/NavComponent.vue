@@ -39,12 +39,20 @@
           </div>
 
           <!-- Modal body -->
-          <div class="modal-body">
-            <p v-for="(phone, index) in cart" v-bind:key="phone._id">
-              <img v-bind:src="'/images/' + phone.image" style="height:30px;width:30px" />
-              {{phone.brand}} {{phone.model}} {{phone.price}},- <button class="btn btn-danger" @click="removeFromCart(index)">X</button>
-            </p>
-            <p>Totaal: {{totalPrice}},-</p>
+          <div class="modal-body container">
+            
+            <div v-for="(phone, index) in cart" v-bind:key="phone._id" class="row" style="padding:5px;">
+              <div class="col-sm-8"><img v-bind:src="'/images/' + phone.image" style="height:30px;width:30px" />
+              {{phone.brand}} {{phone.model}} {{phone.price}},-</div>
+              
+              
+              <div class="col-sm-4 text-right">
+                <button class="btn btn-danger" @click="removeFromCart(index)">X</button>
+              </div>
+            </div>
+            <hr>
+            <p class="text-right" style="margin-bottom:0px;">Totaal: {{totalPrice}},-</p>
+
           </div>
 
           <!-- Modal footer -->
