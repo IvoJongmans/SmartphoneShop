@@ -1,5 +1,5 @@
 //kies het aantal telefoons
-var chooseSeedAmount = 16
+var chooseSeedAmount = 80
 
 //in de terminal -> node seed.js
 //in de terminal -> mongoimport --db=smartphoneshop --collection=phones --type=json --file=phones.json --jsonArray
