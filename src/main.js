@@ -21,6 +21,7 @@ import IndexComponent from './components/IndexComponent.vue';
 import PhoneComponent from './components/PhoneComponent.vue';
 import SearchComponent from './components/SearchComponent.vue';
 import NavComponent from './components/NavComponent.vue';
+import CheckoutComponent from './components/CheckoutComponent.vue';
 
 const routes = [
   {
@@ -40,6 +41,14 @@ const routes = [
         nav: NavComponent
       }
   },
+  {
+    name: 'checkout',
+    path: '/checkout',
+    components: {
+      default: CheckoutComponent,
+      nav: NavComponent
+    }
+  }
 ] ;
 
 const router = new VueRouter({ mode: 'history', routes: routes});

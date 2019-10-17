@@ -50,7 +50,7 @@
           <!-- Modal footer -->
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Verder Winkelen</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal">Afrekenen</button>
+            <a href="/checkout"><button type="button" class="btn btn-success">Afrekenen</button></a>
           </div>
         </div>
       </div>

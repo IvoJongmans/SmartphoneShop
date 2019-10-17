@@ -38,7 +38,7 @@ export default {
       search: {
         brands: [],
         prices: {
-          priceMin: "199",
+          priceMin: "99",
           priceMax: "999"
         }
       }

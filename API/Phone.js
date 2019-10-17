@@ -4,16 +4,16 @@ const Schema = mongoose.Schema;
 //create Schema for phone
 let Phone = new Schema({
   brand: {
-    type: String
+    type: String, sparse: true
   },
   model: {
-    type: String
+    type: String, sparse: true
   },
   color: {
-    type: String
+    type: String, sparse: true
   },
   price: {
-    type: Number
+    type: Number, sparse: true
   },
 },{
     collection: 'phones'
