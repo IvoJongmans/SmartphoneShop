@@ -12,21 +12,13 @@ searchRoutes.route('/').get(function (req, res) {
     if (brand) {
         query.brand = brand;
     }
-    if (priceMin) {
-        query.price = {$gte: priceMin};
+    if (priceMin && priceMax) {
+        query.price = {$gte: priceMin, $lte: priceMax};
     }
-    if (priceMax) {
-        query.price = {$lte: priceMax};
-    }
-    // const items = await Items.find(query);
-    // var brands = req.query.brand
-    // var price_min = req.query.priceMin
-    // var price_max = req.query.priceMax
-
-
-    // console.log(price_min)
-    // res.json({brand})
-
+    // if (priceMax) {
+    //     query.price = {$lte: priceMax};
+    // }
+    console.log(query)
     Phone.find(query)
         .then(phones => {
             res.json(phones)

@@ -4,7 +4,7 @@
       <div
         class="text-center phoneIndex"
         v-bind:id="phone._id"
-        v-for="phone in phones"
+        v-for="phone in phones" 
         v-bind:key="phone._id"
         style="padding: 15px"
       >
@@ -56,6 +56,7 @@ export default {
       //show brands that are selected
       else {
         let uri = "http://localhost:4000/search?";
+        if(search.brands.length > 0) {
         for (let i = 0; i < search.brands.length; i++) {
           if (i == search.brands.length - 1) {
             uri += "brand=" + search.brands[i];
@@ -63,6 +64,24 @@ export default {
             uri += "brand=" + search.brands[i] + "&";
           }
         }
+        }
+        if(search.prices.priceMin !== "") {
+          if(uri.slice(-1) == "?") {
+            uri += "priceMin=" + search.prices.priceMin            
+          }
+          else {
+            uri += "&priceMin=" + search.prices.priceMin
+          }
+        }
+        if(search.prices.priceMax !== "") {
+          if(uri.slice(-1) == "?") {
+            uri += "priceMax=" + search.prices.priceMax          
+          }
+          else {
+            uri += "&priceMax=" + search.prices.priceMax
+          }
+        }
+        console.log(uri)
         this.axios.get(uri).then(response => {
           this.phones = response.data;
         });
