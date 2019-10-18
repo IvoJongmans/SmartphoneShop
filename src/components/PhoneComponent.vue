@@ -8,7 +8,7 @@
       <div class="col-sm-6">
         <h1>{{phone.brand}}</h1>
         <h3>{{phone.model}}</h3>
-        <h5>Prijs: {{phone.price}},-</h5>
+        <h5>Price: {{phone.price}},-</h5>
         <p>{{phone.description}}</p>
       </div>
 
@@ -37,5 +37,5 @@ export default {
 </script>
 
 <style>
-
+  
 </style>

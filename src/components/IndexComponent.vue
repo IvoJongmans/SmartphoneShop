@@ -13,7 +13,7 @@
         <option value="brand">Brand</option>
       </select>
     </div>
-    <div class="d-flex flex-wrap justify-content-between"  v-if="logconsole">
+    <div class="d-flex flex-wrap"  v-if="logconsole">
       <div
         class="phoneIndex"
         v-bind:id="phone._id"

@@ -1,7 +1,7 @@
 <template>
   <div class="col-sm-2">
     <div id="brandcontainer">
-      <h3>Merk:</h3>
+      <h3>Brand:</h3>
       <div
         v-for="brandInDatabase in brandsInDatabase"
         v-bind:key="brandInDatabase._id"
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div id="pricecontainer">
-      <h3>Prijs:</h3>
+      <h3>Price:</h3>
       <input type="text" v-model="search.prices.priceMin" />
       <input type="text" v-model="search.prices.priceMax" />
       <button class="btn btn-primary" @click="searchData">>>></button>

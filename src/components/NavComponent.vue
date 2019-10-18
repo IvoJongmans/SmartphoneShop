@@ -39,7 +39,7 @@
           </div>
 
           <!-- Modal body -->
-          <div class="modal-body container">
+          <div class="modal-body container" v-if="cart.length > 0">
             
             <div v-for="(phone, index) in cart" v-bind:key="phone._id" class="row" style="padding:5px;">
               <div class="col-sm-8"><img v-bind:src="'/images/' + phone.image" style="height:30px;width:30px" />
@@ -54,11 +54,18 @@
             <p class="text-right" style="margin-bottom:0px;">Totaal: {{totalPrice}},-</p>
 
           </div>
+          <div class="modal-body container" v-else>
+
+            <p style="margin-bottom:0px;">Empty:( Add items to shoppingcart.</p>
+          </div>
 
           <!-- Modal footer -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Verder Winkelen</button>
-            <a href="/checkout"><button type="button" class="btn btn-success">Afrekenen</button></a>
+          <div class="modal-footer" v-if="cart.length > 0">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Continue shopping</button>
+            <a href="/checkout"><button type="button" class="btn btn-success">Checkout</button></a>
+          </div>
+          <div class="modal-footer" v-else>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Continue shopping</button>
           </div>
         </div>
       </div>
