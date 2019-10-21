@@ -76,36 +76,96 @@
               />
             </div>
           </div>
+          <div class="row">
+            <div class="col">
+              <select class="custom-select" v-model="shippingData.paymentMethod">
+                <option selected>Payment method</option>
+                <option value="iDeal">iDeal</option>
+                <option value="PayPal">PayPal</option>
+                <option value="Creditcard">Creditcard</option>
+              </select>
+            </div>
+          </div>
         </form>
       </div>
       <div class="col-sm-6">
-        <h3>Order summary:</h3>
+        <h3>Order:</h3>
         <div class="container-fluid" id="phonesOrderSummary">
           <div v-for="phone in phones" v-bind:key="phone._id" class="row">
             <div class="col-9">
-              <p><img v-bind:src="'/images/' + phone.image" style="height:30px;"/> {{phone.brand}} {{phone.model}}</p>
+              <p>
+                <img v-bind:src="'/images/' + phone.image" style="height:30px;" />
+                {{phone.brand}} {{phone.model}}
+              </p>
             </div>
             <div class="col-3">
               <p class="text-right">{{phone.price}},-</p>
             </div>
+          </div>
+        </div>
+        <hr />
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-9">
+              <p>Total:</p>
+            </div>
+            <div class="col-3">
+              <p class="text-right">{{shippingData.total}},-</p>
             </div>
           </div>
-          <hr/>
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-9"><p>
-                Total:
-              </p></div>
-              <div class="col-3"><p class="text-right">{{total}},-</p></div>
-            </div>
+        </div>
+        <button
+          class="btn btn-primary"
+          v-if="shippingData.firstName != '' && shippingData.lastName != '' && shippingData.email != '' && shippingData.street != '' && shippingData.number != '' && shippingData.floor != '' && shippingData.city != '' && shippingData.zipCode != '' && shippingData.paymentMethod != ''"
+          @click="openVerify"
+        >Verify</button>
+      </div>
+    </div>
+
+    <!-- Modal for verifying order -->
+    <div class="modal" id="verifyModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Order summary:</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <p>
+              Ships to:
+              <br />
+              <br />
+              {{shippingData.firstName}} {{shippingData.lastName}}
+              <br />
+              {{shippingData.street}} {{shippingData.number}}{{shippingData.floor}}
+              <br />
+              {{shippingData.zipCode}} {{shippingData.city}}
+            </p>
+
+            <p>Payment method: {{shippingData.paymentMethod}}</p>
+
+            <p>Total: {{shippingData.total}},-</p>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" @click="mollieTest()">Pay</button>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 
 <script>
+
+
+
+import { EventBus } from "../event-bus";
 export default {
   data() {
     return {
@@ -118,28 +178,41 @@ export default {
         number: "",
         floor: "",
         city: "",
-        zipCode: ""
-      },
-      total: []
+        zipCode: "",
+        paymentMethod: "",
+        total: ""
+      }
     };
   },
   created() {
     this.phones = JSON.parse(sessionStorage.getItem("cart"));
+    EventBus.$on("updateCheckout", cart => {
+      this.phones = cart;
+    });
+  },
+  methods: {
+    openVerify() {
+      $("#verifyModal").modal("show");
+    },
+    mollieTest() {
+      console.log('Mollie!')
+    }
   },
   watch: {
-    phones:function() {
-      let total = 0
-      for(let i = 0; i < this.phones.length; i++) {
-        total += this.phones[i].price
+    phones: function() {
+      let total = 0;
+      for (let i = 0; i < this.phones.length; i++) {
+        total += this.phones[i].price;
       }
-      this.total = total
+      this.shippingData.total = total;
     }
   }
 };
 </script>
 
 <style>
-.form-control {
+.form-control,
+.custom-select {
   margin: 10px;
 }
 

@@ -103,6 +103,7 @@ export default {
     //removes phone from cart on index
     removeFromCart(indexToRemove) {
       this.cart.splice(indexToRemove, 1)
+      EventBus.$emit("updateCheckout", this.cart)
       sessionStorage.setItem("cart", JSON.stringify(this.cart));
     }
   },

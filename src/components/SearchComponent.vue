@@ -20,9 +20,9 @@
     </div>
     <div id="pricecontainer">
       <h3>Price:</h3>
-      <input type="text" v-model="search.prices.priceMin" />
-      <input type="text" v-model="search.prices.priceMax" />
-      <button class="btn btn-primary" @click="searchData">>>></button>
+      <input class="form-control" type="text" v-model="search.prices.priceMin" />
+      <input class="form-control" type="text" v-model="search.prices.priceMax" />
+      <button class="btn btn-primary form-control" @click="searchData">>>></button>
     </div>
   </div>
 </template>
@@ -38,8 +38,8 @@ export default {
       search: {
         brands: [],
         prices: {
-          priceMin: "99",
-          priceMax: "999"
+          priceMin: "0",
+          priceMax: "1200"
         }
       }
     };
