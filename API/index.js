@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const config = require('./DB.js');
 const phoneRoute = require('./phone.route');
 const searchRoute = require('./search.route');
+const paymentRoute = require('./payment.route');
+
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
@@ -21,6 +23,7 @@ app.use(bodyParser.json());
 
 app.use('/phones', phoneRoute);
 app.use('/search', searchRoute);
+app.use('/payment', paymentRoute);
 
 app.listen(PORT, function(){
   console.log('Server is running on Port:',PORT);

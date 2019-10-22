@@ -80,9 +80,9 @@
             <div class="col">
               <select class="custom-select" v-model="shippingData.paymentMethod">
                 <option selected>Payment method</option>
-                <option value="iDeal">iDeal</option>
-                <option value="PayPal">PayPal</option>
-                <option value="Creditcard">Creditcard</option>
+                <option value="ideal">iDeal</option>
+                <!-- <option value="paypal">PayPal</option>
+                <option value="creditcard">Creditcard</option> -->
               </select>
             </div>
           </div>
@@ -114,11 +114,12 @@
             </div>
           </div>
         </div>
-        <button
+        <!-- <button
           class="btn btn-primary"
           v-if="shippingData.firstName != '' && shippingData.lastName != '' && shippingData.email != '' && shippingData.street != '' && shippingData.number != '' && shippingData.floor != '' && shippingData.city != '' && shippingData.zipCode != '' && shippingData.paymentMethod != ''"
           @click="openVerify"
-        >Verify</button>
+        >Verify</button> -->
+        <button class="btn btn-primary" @click="openVerify">Verify (test)</button>
       </div>
     </div>
 
@@ -152,7 +153,9 @@
 
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-success" @click="mollieTest()">Pay</button>
+            <a v-bind:href="paymentLink">
+              <button type="button" class="btn btn-success" v-if="paymentLink != ''">Pay</button>
+            </a>
           </div>
         </div>
       </div>
@@ -162,13 +165,11 @@
 
 
 <script>
-
-
-
 import { EventBus } from "../event-bus";
 export default {
   data() {
     return {
+      paymentLink: "",
       phones: [],
       shippingData: {
         firstName: "",
@@ -193,10 +194,20 @@ export default {
   methods: {
     openVerify() {
       $("#verifyModal").modal("show");
-    },
-    mollieTest() {
-      console.log('Mollie!')
+      let uri = "http://localhost:4000/payment?value=" + this.shippingData.total + ".00&method=" + this.shippingData.paymentMethod;
+      this.axios.get(uri).then(response => {
+        this.paymentLink = response.data.payment._links.checkout.href;
+
+        this.phoneCount = this.phones.length;
+      });
     }
+    // mollieTest() {
+    //   let uri = "http://localhost:4000/payment";
+    // this.axios.get(uri).then(response => {
+    //   console.log(response.data.payment._links.checkout.href)
+    //   // this.phoneCount = this.phones.length;
+    // });
+    // }
   },
   watch: {
     phones: function() {

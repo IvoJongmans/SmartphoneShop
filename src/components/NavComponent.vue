@@ -40,29 +40,34 @@
 
           <!-- Modal body -->
           <div class="modal-body container" v-if="cart.length > 0">
-            
-            <div v-for="(phone, index) in cart" v-bind:key="phone._id" class="row" style="padding:5px;">
-              <div class="col-sm-8"><img v-bind:src="'/images/' + phone.image" style="height:30px;width:30px" />
-              {{phone.brand}} {{phone.model}} {{phone.price}},-</div>
-              
-              
+            <div
+              v-for="(phone, index) in cart"
+              v-bind:key="phone._id"
+              class="row"
+              style="padding:5px;"
+            >
+              <div class="col-sm-8">
+                <img v-bind:src="'/images/' + phone.image" style="height:30px;width:30px" />
+                {{phone.brand}} {{phone.model}} {{phone.price}},-
+              </div>
+
               <div class="col-sm-4 text-right">
                 <button class="btn btn-danger" @click="removeFromCart(index)">X</button>
               </div>
             </div>
-            <hr>
+            <hr />
             <p class="text-right" style="margin-bottom:0px;">Totaal: {{totalPrice}},-</p>
-
           </div>
           <div class="modal-body container" v-else>
-
             <p style="margin-bottom:0px;">Empty:( Add items to shoppingcart.</p>
           </div>
 
           <!-- Modal footer -->
           <div class="modal-footer" v-if="cart.length > 0">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Continue shopping</button>
-            <a href="/checkout"><button type="button" class="btn btn-success">Checkout</button></a>
+            <a href="/checkout">
+              <button type="button" class="btn btn-success">Checkout</button>
+            </a>
           </div>
           <div class="modal-footer" v-else>
             <button type="button" class="btn btn-primary" data-dismiss="modal">Continue shopping</button>
@@ -79,7 +84,7 @@ export default {
   data() {
     return {
       cart: [],
-      totalPrice : 0
+      totalPrice: 0
     };
   },
   created() {
@@ -99,23 +104,23 @@ export default {
       $("#myModal").modal("show");
     });
   },
-  methods : {
+  methods: {
     //removes phone from cart on index
     removeFromCart(indexToRemove) {
-      this.cart.splice(indexToRemove, 1)
-      EventBus.$emit("updateCheckout", this.cart)
+      this.cart.splice(indexToRemove, 1);
+      EventBus.$emit("updateCheckout", this.cart);
       sessionStorage.setItem("cart", JSON.stringify(this.cart));
     }
   },
   watch: {
     //watch cart for change
-    cart :function() {
-      let total = 0
+    cart: function() {
+      let total = 0;
       //@change update total price
-      for(let i = 0 ; i < this.cart.length ; i++) {
-        total += parseInt(this.cart[i].price)
+      for (let i = 0; i < this.cart.length; i++) {
+        total += parseInt(this.cart[i].price);
       }
-      this.totalPrice = total
+      this.totalPrice = total;
     }
   }
 };

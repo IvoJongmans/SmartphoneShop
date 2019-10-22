@@ -1,11 +1,12 @@
 <template>
   <div class="container-fluid">
-    
     <router-view name="nav"></router-view>
 
     <div id="vue-group" class="container-fluid">
-      <div class="row"><router-view name="search"></router-view>
-      <router-view></router-view></div>
+      <div class="row">
+        <router-view name="search"></router-view>
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
@@ -16,10 +17,9 @@
 
 <script>
 export default {
-
+  
 };
 </script>
 
 <style>
-
 </style>
